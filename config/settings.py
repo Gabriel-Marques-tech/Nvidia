@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     neo4j_uri: str 
     neo4j_user: str 
     neo4j_password: str 
-    llm_model: str = "llama-3.1-70b-versatile"
+    llm_model: str = "llama-3.3-70b-versatile"
     embedding_model: str = "intfloat/multilingual-e5-large"
     reranker_model: str = "BAAI/bge-reranker-v2-m3"
 
