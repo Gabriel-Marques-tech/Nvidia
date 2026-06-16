@@ -11,6 +11,8 @@ def extract_startup(raw_json_path: str) -> Startup:
 	data = json.loads(Path(raw_json_path).read_text())
 	text = "\n\n".join(p["text"] for p in data["pages"])
 
+	client.chat
+
 
 if __name__ == "__main__":
 	result = extract_startup("data/raw/creditas.json")
