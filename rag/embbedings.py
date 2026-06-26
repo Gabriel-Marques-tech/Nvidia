@@ -11,3 +11,7 @@ class LocalEmbedder(EmbedderClient):
             input_data = [input_data]
         embeddings = self.model.encode(input_data, normalize_embeddings=True)
         return embeddings[0].tolist()
+
+    async def create_batch(self, inputs: list[str]) -> list[list[float]]:
+        embeddings = self.model.encode(inputs, normalize_embeddings=True)
+        return [e.tolist() for e in embeddings]

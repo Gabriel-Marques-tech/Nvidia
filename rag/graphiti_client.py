@@ -11,10 +11,9 @@ from rag.reranker import LocalReranker
 
 async def get_graphiti():
 
-	llm = OpenAIClient(LLMConfig(
+	llm = GroqClient(LLMConfig(
 		api_key=settings.groq_api_key,
 		model=settings.llm_model,
-		base_url="https://api.groq.com/openai/v1"
 	))
 
 	embedder = LocalEmbedder()
