@@ -6,6 +6,7 @@ claude.md
 
 # Notas locais de desenvolvimento (não vão pro repo)
 NOTES.md
+TRADEOFFS.md
 
 # Ambiente virtual
 .venv/
