@@ -713,7 +713,7 @@ function EcosystemGraph({ report, peers }: { report: BriefingReport; peers: Brie
               <button onClick={() => setSelected(null)} className="text-zinc-600 hover:text-zinc-300 text-lg leading-none transition-colors">×</button>
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {/* Justificativa técnica */}
               <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-3 col-span-1">
                 <p className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-2">Contribuição técnica</p>
@@ -816,7 +816,7 @@ function EcosystemGraph({ report, peers }: { report: BriefingReport; peers: Brie
             {synergy && synergy !== "loading" && synergy !== "error" && synergy.has_synergy && (
               <div className="space-y-3">
                 {/* Pontos de sinergia gerados por IA */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {synergy.synergy_points.map((sp, i) => (
                     <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-lg p-3">
                       <p className="text-[10px] font-semibold text-violet-300 uppercase tracking-wider mb-1.5">{sp.title}</p>
@@ -856,12 +856,12 @@ function EcosystemGraph({ report, peers }: { report: BriefingReport; peers: Brie
         );
       })()}
 
-      <div className="px-4 py-2.5 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-600">
-        <div className="flex items-center gap-5">
-          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-violet-500" /> Startup analisada</span>
-          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500" /> NVIDIA · alta prioridade</span>
-          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-blue-500" /> NVIDIA · média/baixa</span>
-          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-blue-800 border border-blue-600" style={{ borderStyle: "dashed" }} /> NVIDIA · só pares</span>
+      <div className="px-4 py-2.5 border-t border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-zinc-600">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-violet-500 shrink-0" /> Startup analisada</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500 shrink-0" /> NVIDIA · alta prioridade</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" /> NVIDIA · média/baixa</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-blue-800 border border-blue-600 shrink-0" style={{ borderStyle: "dashed" }} /> NVIDIA · só pares</span>
         </div>
         <div className="flex items-center gap-2">
           <button onClick={() => applyZoom(1.25)} className="w-6 h-6 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 text-sm leading-none transition-colors flex items-center justify-center">+</button>
@@ -900,7 +900,7 @@ function StartupDetail({ report, score, peers }: { report: BriefingReport; score
       <TabsContent value="overview" className="mt-4 space-y-4">
 
         {/* Main grid: conteúdo + score */}
-        <div className="grid grid-cols-[1fr_200px] gap-4 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_200px] gap-4 items-start">
           <div className="space-y-4">
 
             {/* Sobre + meta stats inline */}
@@ -951,7 +951,7 @@ function StartupDetail({ report, score, peers }: { report: BriefingReport; score
 
             {/* Produtos & Casos de Uso */}
             {((report.startup.products?.length ?? 0) > 0 || (report.startup.use_cases?.length ?? 0) > 0) && (
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {(report.startup.products?.length ?? 0) > 0 && (
                   <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
                     <p className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-2.5">Produtos</p>
@@ -995,7 +995,7 @@ function StartupDetail({ report, score, peers }: { report: BriefingReport; score
 
             {/* Fundadores + Investidores */}
             {((report.startup.founders?.length ?? 0) > 0 || (report.startup.investors?.length ?? 0) > 0) && (
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {(report.startup.founders?.length ?? 0) > 0 && (
                   <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
                     <p className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-2.5">Fundadores</p>
@@ -1075,9 +1075,9 @@ function StartupDetail({ report, score, peers }: { report: BriefingReport; score
         {(report.recommendations ?? []).map((rec, i) => (
           <Card key={i} className="bg-zinc-900 border-zinc-800">
             <CardContent className="pt-5 space-y-3">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-start justify-between gap-2">
                 <span className="font-semibold text-zinc-100">{rec.nvidia_tech}</span>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   <Badge className={`text-xs border ${PRIORITY_COLOR[rec.priority]}`}>
                     {{ high: "alta", medium: "média", low: "baixa" }[rec.priority] ?? rec.priority}
                   </Badge>
@@ -1157,7 +1157,7 @@ function DebateView({ result, nameA, nameB }: { result: DebateResult; nameA: str
         return (
           <div key={round}>
             <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">{ROUND_LABEL[round]}</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Card className="bg-zinc-900 border-zinc-800">
                 <CardHeader className="pb-2"><CardTitle className="text-xs text-zinc-500">{nameA}</CardTitle></CardHeader>
                 <CardContent><p className="text-zinc-300 text-sm leading-relaxed">{movesA[0]?.argument || "—"}</p></CardContent>
@@ -1288,7 +1288,7 @@ function CompareTab({ history }: { history: BriefingReport[] }) {
   return (
     <div className="space-y-6">
       {/* Drop zones */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <DropZone label="Startup A" report={reportA} accentClass="text-green-400"
           onDrop={handleDrop("A")} onClear={() => setPickA("")}
           dragOver={dragOver === "A"}
@@ -1304,7 +1304,7 @@ function CompareTab({ history }: { history: BriefingReport[] }) {
       {/* Startup cards (draggable) */}
       <div>
         <p className="text-xs text-zinc-600 mb-3">Arraste para os slots acima</p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {history.map(r => {
             const inSlot = r.startup.name === pickA || r.startup.name === pickB;
             return (
@@ -1336,7 +1336,7 @@ function CompareTab({ history }: { history: BriefingReport[] }) {
       <Separator className="bg-zinc-800" />
 
       {/* Model selectors */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <ModelSelect value={modelA} onChange={setModelA} label="Agente A" accentClass="text-green-400" />
         <ModelSelect value={modelB} onChange={setModelB} label="Agente B" accentClass="text-blue-400" />
         <ModelSelect value={judgeModel} onChange={setJudgeModel} label="Juiz" accentClass="text-zinc-400" />
@@ -1948,6 +1948,7 @@ export default function Home() {
   const [selected, setSelected] = useState<BriefingReport | null>(null);
   const [page, setPage] = useState<"analyze" | "startups" | "compare" | "ranking" | "graph">("analyze");
   const [analyzeMode, setAnalyzeMode] = useState<"single" | "batch">("single");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -2028,26 +2029,50 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex">
 
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="w-52 shrink-0 border-r border-zinc-800/80 flex flex-col bg-zinc-950/95 backdrop-blur-sm">
+      <aside className={`
+        fixed inset-y-0 left-0 z-40 w-52 border-r border-zinc-800/80 flex flex-col bg-zinc-950/95 backdrop-blur-sm
+        transition-transform duration-200
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+        md:relative md:translate-x-0 md:shrink-0
+      `}>
         {/* Logo */}
         <div className="px-4 py-5 border-b border-zinc-800/80">
-          <div className="flex items-center gap-2.5">
-            <img src="/logo.svg" alt="Logo" className="w-10 h-10 shrink-0" />
-            <div>
-              <p className="font-bold text-sm leading-tight tracking-tight">Startup Radar</p>
-              <p className="text-zinc-500 text-xs">Inception · Brazil</p>
+          <div className="flex items-center justify-between gap-2.5">
+            <div className="flex items-center gap-2.5">
+              <img src="/logo.svg" alt="Logo" className="w-10 h-10 shrink-0" />
+              <div>
+                <p className="font-bold text-sm leading-tight tracking-tight">Startup Radar</p>
+                <p className="text-zinc-500 text-xs">Inception · Brazil</p>
+              </div>
             </div>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="md:hidden text-zinc-500 hover:text-zinc-200 p-1 transition-colors"
+              aria-label="Fechar menu"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </button>
           </div>
         </div>
 
         {/* Nav */}
         <nav className="flex-1 px-2 py-4 space-y-0.5">
-          <NavItem id="analyze" label="Analisar" active={page === "analyze"} onClick={() => setPage("analyze")} />
-          <NavItem id="startups" label="Startups" active={page === "startups"} count={history.length} onClick={() => { setPage("startups"); setSelected(null); }} />
-          <NavItem id="compare" label="Comparar" active={page === "compare"} onClick={() => setPage("compare")} />
-          <NavItem id="ranking" label="Ranking" active={page === "ranking"} count={Object.keys(scores).length || undefined} onClick={() => setPage("ranking")} />
-          <NavItem id="graph" label="Grafo" active={page === "graph"} onClick={() => setPage("graph")} />
+          <NavItem id="analyze" label="Analisar" active={page === "analyze"} onClick={() => { setPage("analyze"); setSidebarOpen(false); }} />
+          <NavItem id="startups" label="Startups" active={page === "startups"} count={history.length} onClick={() => { setPage("startups"); setSelected(null); setSidebarOpen(false); }} />
+          <NavItem id="compare" label="Comparar" active={page === "compare"} onClick={() => { setPage("compare"); setSidebarOpen(false); }} />
+          <NavItem id="ranking" label="Ranking" active={page === "ranking"} count={Object.keys(scores).length || undefined} onClick={() => { setPage("ranking"); setSidebarOpen(false); }} />
+          <NavItem id="graph" label="Grafo" active={page === "graph"} onClick={() => { setPage("graph"); setSidebarOpen(false); }} />
         </nav>
 
         {/* Startups recentes na sidebar */}
@@ -2059,7 +2084,7 @@ export default function Home() {
               return (
                 <button
                   key={r.startup.name}
-                  onClick={() => { setSelected(r); setPage("startups"); }}
+                  onClick={() => { setSelected(r); setPage("startups"); setSidebarOpen(false); }}
                   className={`w-full text-left px-2 py-1.5 rounded text-xs transition-all duration-150 truncate flex items-center gap-1.5 group ${
                     isActive ? "text-green-400 bg-zinc-900" : "text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900/50"
                   }`}
@@ -2074,8 +2099,24 @@ export default function Home() {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 overflow-y-auto">
-        <div key={page} className={`mx-auto px-8 py-8 space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300 fill-mode-both ${page === "graph" ? "max-w-6xl" : "max-w-3xl"}`}>
+      <main className="flex-1 overflow-y-auto min-w-0">
+        {/* Mobile header */}
+        <div className="md:hidden sticky top-0 z-20 flex items-center gap-3 px-4 py-3 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur-sm">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="text-zinc-400 hover:text-zinc-100 transition-colors p-1"
+            aria-label="Abrir menu"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </button>
+          <div className="flex items-center gap-2">
+            <img src="/logo.svg" alt="Logo" className="w-6 h-6" />
+            <span className="font-semibold text-sm text-zinc-100">Startup Radar</span>
+          </div>
+        </div>
+        <div key={page} className={`mx-auto px-4 sm:px-8 py-8 space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300 fill-mode-both ${page === "graph" ? "max-w-6xl" : "max-w-3xl"}`}>
 
           {/* PAGE: Analisar */}
           {page === "analyze" && (
@@ -2098,7 +2139,7 @@ export default function Home() {
                 <>
                   <Card className="bg-zinc-900 border-zinc-800">
                     <CardContent className="pt-6 space-y-4">
-                      <div className="flex gap-3">
+                      <div className="flex flex-col sm:flex-row gap-3">
                         <Input
                           value={startupName}
                           onChange={(e) => setStartupName(e.target.value)}
@@ -2107,7 +2148,7 @@ export default function Home() {
                           className="bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 h-10"
                         />
                         <Button onClick={analyze} disabled={!mounted || loading || !startupName}
-                          className="bg-green-600 hover:bg-green-500 text-black font-semibold px-6 transition-all duration-200 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] disabled:opacity-40 disabled:shadow-none">
+                          className="bg-green-600 hover:bg-green-500 text-black font-semibold px-6 transition-all duration-200 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] disabled:opacity-40 disabled:shadow-none shrink-0">
                           {loading ? "Analisando..." : "Analisar"}
                         </Button>
                       </div>
@@ -2191,7 +2232,7 @@ export default function Home() {
                       <span className="text-xs text-zinc-600 animate-pulse">calculando scores...</span>
                     )}
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {history.map((r, i) => (
                       <StartupCard
                         key={i}
