@@ -8,13 +8,13 @@ scraping-install:
 	.venv/bin/playwright install chromium
 
 api:
-	PYTHONPATH=. .venv/bin/uvicorn api.main:app --reload --port 8000
+	PYTHONPATH=src .venv/bin/uvicorn api.main:app --reload --port 8000
 
 front:
 	cd frontend && npm run dev
 
 ingest:
-	PYTHONPATH=. .venv/bin/python rag/ingestion.py
+	PYTHONPATH=src .venv/bin/python src/rag/ingestion.py
 
 neo4j-up:
 	docker compose up neo4j -d
