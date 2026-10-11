@@ -24,7 +24,10 @@ _PRIORITY_DOMAINS = [
 
 def _domain(url: str) -> str:
     try:
-        return url.split("/")[2]
+        host = url.split("/")[2]
+        parts = host.split(".")
+        # normaliza subdomínios (br.linkedin.com, www.crunchbase.com...) pro domínio raiz
+        return ".".join(parts[-2:]) if len(parts) > 2 else host
     except Exception:
         return url
 
@@ -107,6 +110,8 @@ async def _research_async(name: str) -> list[str]:
     result: list[str] = []
 
     all_urls = probed + ddg_urls
+    # dentro do mesmo domínio, prioriza página de perfil (/company/) sobre artigos/sub-páginas
+    all_urls = sorted(all_urls, key=lambda u: 0 if "/company/" in u else 1)
     priority = [u for u in all_urls if any(p in u for p in _PRIORITY_DOMAINS)]
     rest     = [u for u in all_urls if u not in priority]
 

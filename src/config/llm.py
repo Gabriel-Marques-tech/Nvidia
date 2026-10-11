@@ -4,7 +4,7 @@ from openai import AsyncOpenAI
 
 from config.settings import settings
 
-GROQ_MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
+GROQ_MODEL = "llama-3.3-70b-versatile"
 
 OPENROUTER_MODELS = {
     "llama-3.3-70b": "meta-llama/llama-3.3-70b-instruct:free",

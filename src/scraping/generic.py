@@ -195,11 +195,13 @@ def scrape_startup(name: str, urls: list[str], save: bool = True) -> dict:
     return asyncio.run(scrape_startup_async(name, urls, save))
 
 
+async def scrape_url_async(url: str) -> dict | None:
+    async with httpx.AsyncClient() as client:
+        return await _scrape_http(url, client)
+
+
 def scrape_url(url: str) -> dict | None:
-    async def _run():
-        async with httpx.AsyncClient() as client:
-            return await _scrape_http(url, client)
-    return asyncio.run(_run())
+    return asyncio.run(scrape_url_async(url))
 
 
 if __name__ == "__main__":

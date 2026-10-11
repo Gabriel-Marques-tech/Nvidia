@@ -11,12 +11,12 @@ from pydantic import BaseModel
 import typing
 
 from config.settings import settings
-from scraping.generic import scrape_url
+from scraping.generic import scrape_url_async
 from rag.embbedings import LocalEmbedder
 from rag.reranker import LocalReranker
 
 
-# llama-4-scout tem max_tokens <= 8192 mas edge_operations.py hardcoda 16384
+# edge_operations.py hardcoda max_tokens=16384, acima do limite do modelo Groq usado
 # subclass cappa o valor antes de chegar no Groq
 class CappedGroqClient(GroqClient):
     async def _generate_response(
@@ -109,7 +109,7 @@ async def ingest_nvidia_techs():
     """
     llm = CappedGroqClient(LLMConfig(
         api_key=settings.groq_api_key,
-        model="meta-llama/llama-4-scout-17b-16e-instruct",
+        model="llama-3.3-70b-versatile",
         max_tokens=2048,
     ))
     driver = Neo4jDriver(
@@ -130,7 +130,7 @@ async def ingest_nvidia_techs():
 
     for name, info in NVIDIA_TECHS.items():
         print(f"[ingestion] scraping {name}...")
-        scraped = scrape_url(info["url"])
+        scraped = await scrape_url_async(info["url"])
 
         if not scraped:
             print(f"[ingestion] ✗ falha ao scrapar {name}, pulando")
